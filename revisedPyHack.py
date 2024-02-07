@@ -57,17 +57,19 @@ def Hack():
     IsConnected = internet_on_silent()
     
     # Tests connection before next cycle
-    while IsConnected:
+    while True:
         IsConnected = internet_on_silent()
         # This is why I did that unreadable aliasing up above.
-        command("tree")
-        # Extra stuff to list stuff in a different way
-        runningOS = platform.system()
-        if runningOS == "nt":
-            command("Dir -r")
-        return True
-    else:
-        print("Disconnected...")
+        if IsConnected == True:
+            command("tree")
+            # Extra stuff to list stuff in a different way
+            runningOS = platform.system()
+            if runningOS == "nt":
+                command("Dir -r")
+            return True
+        else:
+            print("Disconnected...")
+            break
 
 # Main loop runs "Hack()" until connection is lost.     
 def main():
