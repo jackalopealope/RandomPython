@@ -1,5 +1,4 @@
-import os
-import subprocess
+import os, subprocess, platform
 
 # Define internet connection check (This is an artificial requirement, it is possible to run this script without an internet connection, I just did this for kicks and giggles.)
 def internet_on_firstboot():
@@ -44,9 +43,13 @@ def setup():
     # but it basically does the same thing as the tree command in windows command prompt.
     aliasstring = "alias tree=\"ls -R | grep ':$' | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /\ -e 's/-/|/'\""
     command("cd /")
-    command(aliasstring)
+    runningOS = platform.system()
+    if runningOS == "Linux":
+        command(aliasstring)
     # This is a Windows only thing, if you know how, feel free to push an update that does this for bash based shells.
-    command("color 0a")   
+    if runningOS == "nt":
+        command("color 0a")
+     
  
     # This is where the magic happens, it is what you will see when you run this program.
 def Hack():
@@ -59,7 +62,9 @@ def Hack():
         # This is why I did that unreadable aliasing up above.
         command("tree")
         # Extra stuff to list stuff in a different way
-        command("Dir -r")
+        runningOS = platform.system()
+        if runningOS == "nt":
+            command("Dir -r")
         return True
     else:
         print("Disconnected...")
