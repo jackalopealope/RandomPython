@@ -73,8 +73,14 @@ def Hack():
 
 # Main loop runs "Hack()" until connection is lost.     
 def main():
-    Hack()
-    input("Press any key to exit")
-    exit()
+    try:
+        Hack()
+        
+        
+    except KeyboardInterrupt:
+        print("Disconnected...")
+        input("Press any key to exit")
+        exit()
 
 main()
+
